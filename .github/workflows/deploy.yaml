@@ -51,4 +51,4 @@ jobs:
           repository: https://${{ secrets.ARTIFACT_LOCATION }}-python.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.ARTIFACT_REPOSITORY }}/
           username: __token__
           password: 'key.json'" > ~/.pypirc
-          python -m twine upload --repository ${{ secrets.ARTIFACT_REPOSITORY }} dist/*
+          python -m twine upload --verbose --repository ${{ secrets.ARTIFACT_REPOSITORY }} dist/*
