@@ -37,4 +37,4 @@ jobs:
           gcloud artifacts print-settings python
       - name: Install Dependencies
         run: |
-          pip install --index-url '${{ secrets.ARTIFACT_REPOSITORY }}' common-utils
+          pip install --index-url '${{ secrets.ARTIFACT_REPOSITORY }}/simple' common-utils
