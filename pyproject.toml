@@ -15,6 +15,3 @@ dynamic = ["version"]
 
 [project.optional-dependencies]
 dev = []
-
-[tool.setuptools_scm]
-version_file = "src/common_utils/_version.py"

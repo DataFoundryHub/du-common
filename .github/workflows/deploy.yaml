@@ -44,7 +44,7 @@ jobs:
           echo "[distutils]
           index-servers = ${{ secrets.ARTIFACT_REPOSITORY }}
           [${{ secrets.ARTIFACT_REPOSITORY }}]
-          repository: https://${{ secrets.ARTIFACT_LOCATION }}-python.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.ARTIFACT_REPOSITORY }}/
+          repository: https://${{ secrets.ARTIFACT_LOCATION }}-python.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.ARTIFACT_REPOSITORY }} > ~/.pypirc
       - name: Register package
         run: |
           twine upload -r ${{ secrets.ARTIFACT_REPOSITORY }} dist/*
