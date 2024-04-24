@@ -44,7 +44,6 @@ jobs:
           gcloud config set artifacts/repository '${{ secrets.ARTIFACT_REPOSITORY }}'
           gcloud config set artifacts/location '${{ secrets.ARTIFACT_LOCATION }}'
           gcloud config set account '${{ secrets.SERVICE_ACCOUNT }}'
-          cat '${{steps.auth.outputs.credentials_file_path}}'
-          
+          gcloud artifacts print-settings python
           gcloud artifacts print-settings python > ~/.pypirc
           python -m twine upload --repository '${{ secrets.ARTIFACT_REPOSITORY }}' dist/*
