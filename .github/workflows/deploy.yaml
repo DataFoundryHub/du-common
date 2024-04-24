@@ -36,17 +36,10 @@ jobs:
           service_account: '${{ secrets.SERVICE_ACCOUNT }}'
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
-      - name: set credentials file
-        run: >-
-          gcloud auth login
-          --cred-file=${{steps.auth.outputs.credentials_file_path}}
       - name: set  Artifact Registry
         run: |
           gcloud config set artifacts/repository '${{ secrets.ARTIFACT_REPOSITORY }}'
           gcloud config set artifacts/location '${{ secrets.ARTIFACT_LOCATION }}'
           gcloud config set account '${{ secrets.SERVICE_ACCOUNT }}'
-          gcloud auth activate-service-account '${{ secrets.SERVICE_ACCOUNT }}' --key-file='${{vars.key}}' --project='du-labs'
           gcloud artifacts print-settings python > ~/.pypirc
           python -m twine upload --repository '${{ secrets.ARTIFACT_REPOSITORY }}' dist/*
-        env:
-          key: gcloud iam service-accounts keys create --iam-account '${{ secrets.SERVICE_ACCOUNT }}'
