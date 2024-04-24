@@ -45,7 +45,6 @@ jobs:
           gcloud config set artifacts/location '${{ secrets.ARTIFACT_LOCATION }}'
           gcloud config set account '${{ secrets.SERVICE_ACCOUNT }}'
           cat '${{steps.auth.outputs.credentials_file_path}}'
-          gcloud auth activate-service-account '${{ secrets.SERVICE_ACCOUNT }}' --key-file='${{steps.auth.outputs.credentials_file_path}}' --project='${{ secrets.PROJECT_ID }}'
           
           gcloud artifacts print-settings python > ~/.pypirc
           python -m twine upload --repository '${{ secrets.ARTIFACT_REPOSITORY }}' dist/*
