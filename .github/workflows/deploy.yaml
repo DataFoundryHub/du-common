@@ -43,7 +43,7 @@ jobs:
           gcloud config set account '${{ secrets.SERVICE_ACCOUNT }}'
           gcloud iam service-accounts keys create "key.json" --iam-account '${{ secrets.SERVICE_ACCOUNT }}'
 
-          gcloud artifacts print-settings python > ~/.pypirc
           python -m twine upload --verbose --repository ${{ secrets.ARTIFACT_REPOSITORY }} dist/*
-        env:
-          key: base64 -i 'key.json'
+          gcloud auth activate-service-account --key-file=$GOOGLE_GHA_CREDS_PATH
+          gcloud artifacts print-settings python > ~/.pypirc
+          python -m twine upload --repository <repository_name> dist/*
