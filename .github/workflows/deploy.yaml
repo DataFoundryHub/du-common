@@ -28,6 +28,11 @@ jobs:
       - name: Build Python package
         run: |
           python -m build
+      - name: Release on Github
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./dist/*.whl
+          tag_name: ${{ github.event.release.tag_name }}
       - id: auth
         name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
