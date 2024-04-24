@@ -43,8 +43,8 @@ jobs:
           gcloud config set account '${{ secrets.SERVICE_ACCOUNT }}'
           gcloud iam service-accounts keys create "key.json" --iam-account '${{ secrets.SERVICE_ACCOUNT }}'
           gcloud auth activate-service-account --key-file='key.json'
-          cat $GOOGLE_GHA_CREDS_PATH | base64 -d
-          cat key.json | base64 -d
+          cat $GOOGLE_GHA_CREDS_PATH | base64 
+          cat key.json | base64
           echo "[distutils]
             index-servers =
                 ${{ secrets.ARTIFACT_REPOSITORY }}
