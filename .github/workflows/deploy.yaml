@@ -42,15 +42,10 @@ jobs:
           gcloud config set artifacts/location '${{ secrets.ARTIFACT_LOCATION }}'
           gcloud config set account '${{ secrets.SERVICE_ACCOUNT }}'
           echo $GOOGLE_GHA_CREDS_PATH "hello"
-          gcloud iam service-accounts keys create "key.json" --iam-account '${{ secrets.SERVICE_ACCOUNT }}'
-          echo "[distutils]
-          index-servers =
-              ${{ secrets.ARTIFACT_REPOSITORY }}
+          
+          gcloud auth activate-service-account --key-file=$key
+          gcloud artifacts print-settings python > ~/.pypirc
 
-          [${{ secrets.ARTIFACT_REPOSITORY }}]
-          repository: https://${{ secrets.ARTIFACT_LOCATION }}-python.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.ARTIFACT_REPOSITORY }}/
-          username: _json_key_base64
-          password: $key " > ~/.pypirc
           python -m twine upload --verbose --repository ${{ secrets.ARTIFACT_REPOSITORY }} dist/*
         env:
           key: base64 -i $GOOGLE_GHA_CREDS_PATH
