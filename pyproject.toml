@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "common_utils"
+dependencies = []
+requires-python = "==3.11"
+authors = [
+    {name = "Aadarsh Gaikwad", email = "aadarshgaikwad96@email.com"},
+]
+description = "GCP Artifact Registry"
+readme = "README.md"
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = []
+
+[tool.setuptools_scm]
+version_file = "src/common_utils/_version.py"
