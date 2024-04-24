@@ -40,7 +40,7 @@ jobs:
           gcloud auth login
           --cred-file=${{steps.auth.outputs.credentials_file_path}}
       - name: Upload to Artifact Registry
-        run: >-
+        run: |
           gcloud config set artifacts/repository '${{ secrets.ARTIFACT_REPOSITORY }}'
           gcloud config set artifacts/location '${{ secrets.ARTIFACT_LOCATION }}'
           gcloud config set account '${{ secrets.SERVICE_ACCOUNT }}'
