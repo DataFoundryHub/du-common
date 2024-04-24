@@ -40,12 +40,12 @@ jobs:
           gcloud auth login
           --cred-file=${{steps.auth.outputs.credentials_file_path}}
       - name: Upload to Artifact Registry
-        run: |
-          gcloud config set artifacts/repository ${{ secrets.ARTIFACT_REPOSITORY }}
-          gcloud config set artifacts/location ${{ secrets.ARTIFACT_LOCATION }}
-          gcloud config set account ${{ secrets.SERVICE_ACCOUNT }}
+        run: >-
+          gcloud config set artifacts/repository '${{ secrets.ARTIFACT_REPOSITORY }}'
+          gcloud config set artifacts/location '${{ secrets.ARTIFACT_LOCATION }}'
+          gcloud config set account '${{ secrets.SERVICE_ACCOUNT }}'
           
-          gcloud auth activate-service-account ${{ secrets.SERVICE_ACCOUNT }} --key-file=${{steps.auth.outputs.credentials_file_path}} --project=${{ secrets.PROJECT_ID }}
+          gcloud auth activate-service-account '${{ secrets.SERVICE_ACCOUNT }}' --key-file='${{steps.auth.outputs.credentials_file_path}}' --project='${{ secrets.PROJECT_ID }}'
           
           gcloud artifacts print-settings python > ~/.pypirc
-          python -m twine upload --repository ${{ secrets.ARTIFACT_REPOSITORY }} dist/*
+          python -m twine upload --repository '${{ secrets.ARTIFACT_REPOSITORY }}' dist/*
