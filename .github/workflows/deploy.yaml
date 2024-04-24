@@ -43,7 +43,7 @@ jobs:
           gcloud config set account '${{ secrets.SERVICE_ACCOUNT }}'
           echo $GOOGLE_GHA_CREDS_PATH "hello" $GOOGLE_APPLICATION_CREDENTIALS
           
-          gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
+          gcloud auth activate-service-account --key-file={{steps.auth.outputs.auth_token}}
           gcloud artifacts print-settings python > ~/.pypirc
 
           python -m twine upload --verbose --repository ${{ secrets.ARTIFACT_REPOSITORY }} dist/*
