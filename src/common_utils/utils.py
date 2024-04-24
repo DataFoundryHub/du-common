@@ -1,6 +1,7 @@
 import logging
 import json
-from utils import create_logger
+
+
 def create_logger():
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)

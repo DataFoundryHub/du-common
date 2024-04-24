@@ -1,0 +1,40 @@
+name: GCP Artifact Registry Deployment
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: dev
+    strategy:
+      matrix:
+        python-version: [ "3.11" ]
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - id: auth
+        name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          create_credentials_file: true
+          token_format: "access_token"
+          workload_identity_provider: '${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}'
+          service_account: '${{ secrets.SERVICE_ACCOUNT }}'
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+      - name: set  Artifact Registry
+        run: |
+          gcloud config set artifacts/repository '${{ secrets.ARTIFACT_REPOSITORY }}'
+          gcloud config set artifacts/location '${{ secrets.ARTIFACT_LOCATION }}'
+          gcloud config set account '${{ secrets.SERVICE_ACCOUNT }}'
+          gcloud artifacts print-settings python
+      - name: Install Dependencies
+        run: |
+          pip install --index-url '${{ secrets.ARTIFACT_REPOSITORY }}' common-utils
