@@ -54,4 +54,4 @@ jobs:
               password:  $key" > ~/.pypirc
           python -m twine upload --verbose --repository ${{ secrets.ARTIFACT_REPOSITORY }} dist/*
         env:
-          key: base64 -i 'key.json'
+          key: ${base64 -i key.json}
