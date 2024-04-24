@@ -46,4 +46,4 @@ jobs:
           gcloud artifacts print-settings python > ~/.pypirc
       - name: upload  Artifact Registry
         run: |
-          python -m twine upload --repository '${{ secrets.ARTIFACT_REPOSITORY }}' dist/*
+          twine upload -r ${{ secrets.ARTIFACT_REPOSITORY }} dist/*
