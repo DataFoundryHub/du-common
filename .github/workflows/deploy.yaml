@@ -43,7 +43,14 @@ jobs:
           gcloud config set account '${{ secrets.SERVICE_ACCOUNT }}'
           gcloud iam service-accounts keys create "key.json" --iam-account '${{ secrets.SERVICE_ACCOUNT }}'
           gcloud auth activate-service-account '${{ secrets.SERVICE_ACCOUNT }}' --key-file='key.json' --project='du-labs'
-          gcloud artifacts print-settings python > ~/.pypirc
+          echo "[distutils]
+          index-servers =
+              ${{ secrets.ARTIFACT_REPOSITORY }}
+
+          [${{ secrets.ARTIFACT_REPOSITORY }}]
+          repository: https://${{ secrets.ARTIFACT_LOCATION }}-python.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.ARTIFACT_REPOSITORY }}/
+          username: _json_key_base64
+          password: 'key.json'" > ~/.pypirc
       - name: upload  Artifact Registry
         run: |
           twine upload -r ${{ secrets.ARTIFACT_REPOSITORY }} dist/*
