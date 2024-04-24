@@ -44,4 +44,6 @@ jobs:
           gcloud iam service-accounts keys create "key.json" --iam-account '${{ secrets.SERVICE_ACCOUNT }}'
           gcloud auth activate-service-account '${{ secrets.SERVICE_ACCOUNT }}' --key-file='key.json' --project='du-labs'
           gcloud artifacts print-settings python > ~/.pypirc
+      - name: upload  Artifact Registry
+        run: |
           python -m twine upload --repository '${{ secrets.ARTIFACT_REPOSITORY }}' dist/*
