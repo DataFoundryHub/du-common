@@ -48,7 +48,7 @@ jobs:
             [${{ secrets.ARTIFACT_REPOSITORY }}]
             repository: https://${{ secrets.ARTIFACT_LOCATION }}-python.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.ARTIFACT_REPOSITORY }}/
             username: _json_key
-            password:  $(cat $GOOGLE_GHA_CREDS_PATH.json | base64 -d)" > ~/.pypirc
+            password:  $(cat $GOOGLE_GHA_CREDS_PATH | base64 -d)" > ~/.pypirc
           python -m twine upload --verbose --repository ${{ secrets.ARTIFACT_REPOSITORY }} dist/*
         env:
           key: base64 -i $GOOGLE_GHA_CREDS_PATH
