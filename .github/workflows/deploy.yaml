@@ -43,5 +43,6 @@ jobs:
           gcloud config set artifacts/repository '${{ secrets.ARTIFACT_REPOSITORY }}'
           gcloud config set artifacts/location '${{ secrets.ARTIFACT_LOCATION }}'
           gcloud config set account '${{ secrets.SERVICE_ACCOUNT }}'
+          gcloud artifacts print-settings python --project='${{secrets.PROJECT_ID}}' --repository='${{ secrets.ARTIFACT_REPOSITORY }}' --location='${{ secrets.ARTIFACT_LOCATION }}' --json-key=$GOOGLE_GHA_CREDS_PATH 
           gcloud artifacts print-settings python > ~/.pypirc
           python -m twine upload --verbose --repository ${{ secrets.ARTIFACT_REPOSITORY }} dist/*
